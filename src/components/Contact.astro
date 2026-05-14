@@ -1,0 +1,260 @@
+---
+const flows = [
+  { num: '01', title: 'お問い合わせ', desc: 'メール・Instagram DM' },
+  { num: '02', title: 'ヒアリング', desc: '日時・場所・規模をご相談' },
+  { num: '03', title: 'ご提案', desc: '最適なブランド・台数をご提案' },
+  { num: '04', title: '条件確定', desc: '日程・規模・金額の確定' },
+  { num: '05', title: '当日、出店', desc: '設営〜撤収まで責任を持って' },
+];
+---
+
+<section class="contact fade-in" id="contact">
+  <div class="container">
+    <div class="section-label section-label-light">
+      <div class="section-label-num">06</div>
+      <div class="section-label-line"></div>
+      <div class="section-label-name">CONTACT</div>
+    </div>
+
+    <h2 class="big-title contact-title">
+      Let's<br />
+      <span class="big-title-italic-light">connect</span>.
+    </h2>
+    <div class="jp-sub">出店のご相談はこちら</div>
+
+    <div class="main-cta">
+      <a href="mailto:food.stand.tokyo@gmail.com" class="cta-button">
+        出店を依頼する <span class="arrow">→</span>
+      </a>
+      <div class="cta-jp-small">
+        日程・場所が未定でも、<br />
+        まずはお気軽にご相談ください。
+      </div>
+    </div>
+
+    <div class="contact-cards">
+      <a href="mailto:food.stand.tokyo@gmail.com" class="contact-card">
+        <div class="contact-icon">✉</div>
+        <div class="contact-info">
+          <div class="contact-label">EMAIL</div>
+          <div class="contact-value email">food.stand.tokyo@gmail.com</div>
+        </div>
+        <div class="contact-arrow">→</div>
+      </a>
+
+      <a href="https://instagram.com/" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon">📷</div>
+        <div class="contact-info">
+          <div class="contact-label">INSTAGRAM</div>
+          <div class="contact-value">@food_stand_tokyo</div>
+        </div>
+        <div class="contact-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="flow-section">
+      <div class="flow-heading">FLOW / ご依頼の流れ</div>
+      <div class="flow-list">
+        {flows.map((flow) => (
+          <div class="flow-item">
+            <div class="flow-num">{flow.num}</div>
+            <div class="flow-text">
+              {flow.title}
+              <span class="small">{flow.desc}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 80px 0;
+    background: var(--color-bluegray);
+    color: var(--color-base);
+  }
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section-label-light .section-label-num,
+  .section-label-light .section-label-name {
+    color: var(--color-base);
+  }
+  .section-label-light .section-label-line {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .contact-title {
+    margin-top: 20px;
+    font-size: 52px;
+    color: var(--color-base);
+  }
+  .big-title-italic-light {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+  }
+  .jp-sub {
+    margin-top: 14px;
+    font-family: var(--font-serif-jp);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.15em;
+  }
+  .jp-sub::before {
+    content: "—— ";
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .main-cta {
+    margin: 36px 0;
+    text-align: center;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--color-bluegray-dark);
+    color: var(--color-base);
+    padding: 18px 36px;
+    border-radius: 40px;
+    font-family: var(--font-serif-jp);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    box-shadow: 0 14px 32px rgba(61, 92, 115, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(61, 92, 115, 0.5);
+  }
+  .cta-button .arrow {
+    font-size: 16px;
+  }
+  .cta-jp-small {
+    margin-top: 14px;
+    font-family: var(--font-serif-jp);
+    font-weight: 300;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+  }
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .contact-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.3s;
+  }
+  .contact-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-base);
+    font-size: 18px;
+    flex: 0 0 40px;
+  }
+  .contact-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .contact-label {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+  }
+  .contact-value {
+    font-family: var(--font-serif-jp);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--color-base);
+    letter-spacing: 0.05em;
+    word-break: break-all;
+  }
+  .contact-value.email {
+    font-family: var(--font-sans);
+    font-size: 12px;
+  }
+  .contact-arrow {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+  }
+  .flow-section {
+    margin-top: 36px;
+  }
+  .flow-heading {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .flow-heading::before {
+    content: '';
+    flex: 0 0 20px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .flow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .flow-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .flow-num {
+    flex: 0 0 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--color-bluegray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif-en);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-base);
+  }
+  .flow-text {
+    font-family: var(--font-serif-jp);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--color-base);
+    letter-spacing: 0.08em;
+  }
+  .flow-text .small {
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 2px;
+    font-weight: 300;
+  }
+</style>

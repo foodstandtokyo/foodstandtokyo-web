@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+JP:wght@300;400;500;700&family=Montserrat:wght@200;300;400;500;600&display=swap');
+
+/* ===========================
+   FOOD STAND - Brand Tokens
+   =========================== */
+:root {
+  /* Colors */
+  --color-base: #FAFAF7;
+  --color-text: #2C3540;
+  --color-text-sub: #6B7280;
+  --color-gray: #A5A5A5;
+  --color-border: #E5E7EB;
+
+  --color-bluegray-light: #A8BCCB;
+  --color-bluegray: #7A8FA8;
+  --color-bluegray-medium: #5A7891;
+  --color-bluegray-dark: #3D5C73;
+
+  /* Fonts */
+  --font-serif-en: 'Cormorant Garamond', serif;
+  --font-serif-jp: 'Noto Serif JP', serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-serif-jp);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ===========================
+   共通：セクションラベル
+   =========================== */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label-num {
+  font-family: var(--font-serif-en);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--color-bluegray-medium);
+  line-height: 1;
+}
+.section-label-line {
+  width: 40px;
+  height: 1px;
+  background: var(--color-bluegray-medium);
+}
+.section-label-name {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--color-bluegray-medium);
+  text-transform: uppercase;
+}
+
+/* ===========================
+   共通：英タイトル
+   =========================== */
+.big-title {
+  font-family: var(--font-serif-en);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--color-text);
+}
+.big-title-italic {
+  font-style: italic;
+  color: var(--color-bluegray-medium);
+  font-weight: 300;
+}
+
+/* ===========================
+   アニメーション：スクロール時の登場
+   =========================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

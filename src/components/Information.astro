@@ -1,0 +1,239 @@
+---
+const categories = ['スイーツ', 'パン', 'ドリンク', 'コーヒー', 'スムージー', 'アルコール', 'サラダ', 'スープ', 'シーフード', 'ライス'];
+---
+
+<section class="info fade-in" id="info">
+  <div class="container">
+    <div class="section-label">
+      <div class="section-label-num">05</div>
+      <div class="section-label-line"></div>
+      <div class="section-label-name">INFORMATION</div>
+    </div>
+
+    <h2 class="big-title info-title">
+      <span class="big-title-italic">Spec</span><br />
+      & details.
+    </h2>
+    <div class="jp-sub">基本情報・出店仕様</div>
+
+    <div class="info-list">
+      <!-- 営業可能地域 -->
+      <div class="info-row">
+        <div class="info-row-header">
+          <div class="info-icon">📍</div>
+          <div class="info-label-en">AREA</div>
+        </div>
+        <div class="info-label-jp">営業可能地域</div>
+        <div class="area-tags">
+          <div class="area-tag">東京</div>
+          <div class="area-tag">神奈川</div>
+          <div class="area-tag">千葉</div>
+          <div class="area-tag">埼玉</div>
+          <div class="area-tag">静岡</div>
+        </div>
+      </div>
+
+      <!-- 車両サイズ -->
+      <div class="info-row">
+        <div class="info-row-header">
+          <div class="info-icon">🚚</div>
+          <div class="info-label-en">VEHICLE</div>
+        </div>
+        <div class="info-label-jp">車両サイズ</div>
+        <div class="vehicle-spec">
+          <div class="spec-item">
+            <div class="spec-label">LENGTH</div>
+            <div class="spec-num">480<span class="spec-unit">cm</span></div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">WIDTH</div>
+            <div class="spec-num">181<span class="spec-unit">cm</span></div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">HEIGHT</div>
+            <div class="spec-num">290<span class="spec-unit">cm</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- メニューカテゴリ -->
+      <div class="info-row">
+        <div class="info-row-header">
+          <div class="info-icon">🍴</div>
+          <div class="info-label-en">CATEGORIES</div>
+        </div>
+        <div class="info-label-jp">メニューカテゴリー</div>
+        <div class="category-tags">
+          {categories.map((cat, i) => (
+            <div class={`cat-tag ${i % 2 === 0 ? '' : 'alt'}`}>{cat}</div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 価格帯 -->
+      <div class="info-row">
+        <div class="info-row-header">
+          <div class="info-icon">💰</div>
+          <div class="info-label-en">PRICE RANGE</div>
+        </div>
+        <div class="info-label-jp">商品価格帯</div>
+        <div class="price-range">
+          <span class="price-num">¥450</span>
+          <span class="price-tilde">—</span>
+          <span class="price-num">¥1,800</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .info {
+    padding: 80px 0;
+  }
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .info-title {
+    margin-top: 20px;
+    font-size: 40px;
+  }
+  .jp-sub {
+    margin-top: 12px;
+    font-family: var(--font-serif-jp);
+    font-size: 13px;
+    color: var(--color-text-sub);
+    letter-spacing: 0.15em;
+  }
+  .info-list {
+    margin-top: 32px;
+  }
+  .info-row {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .info-row:last-child {
+    border-bottom: none;
+  }
+  .info-row-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .info-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #F0EDE5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--color-bluegray-medium);
+  }
+  .info-label-en {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--color-bluegray-medium);
+    flex: 1;
+  }
+  .info-label-jp {
+    font-family: var(--font-serif-jp);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: 0.1em;
+    margin-left: 40px;
+    margin-top: -8px;
+    margin-bottom: 12px;
+  }
+  .area-tags {
+    margin-left: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .area-tag {
+    padding: 6px 12px;
+    border: 1px solid #C5CFD8;
+    border-radius: 30px;
+    font-family: var(--font-serif-jp);
+    font-size: 11px;
+    color: var(--color-text);
+    background: #FFFFFF;
+  }
+  .vehicle-spec {
+    margin-left: 40px;
+    display: flex;
+    gap: 16px;
+  }
+  .spec-item {
+    flex: 1;
+    text-align: center;
+    padding: 12px 6px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+  .spec-label {
+    font-family: var(--font-sans);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--color-bluegray-medium);
+    margin-bottom: 4px;
+  }
+  .spec-num {
+    font-family: var(--font-serif-en);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--color-text);
+    line-height: 1;
+  }
+  .spec-unit {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--color-text-sub);
+    margin-left: 2px;
+  }
+  .category-tags {
+    margin-left: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .cat-tag {
+    padding: 5px 11px;
+    border-radius: 30px;
+    font-family: var(--font-serif-jp);
+    font-size: 10px;
+    color: #FFFFFF;
+    background: var(--color-bluegray);
+    letter-spacing: 0.05em;
+  }
+  .cat-tag.alt {
+    background: #FFFFFF;
+    color: var(--color-bluegray);
+    border: 1px solid var(--color-bluegray);
+  }
+  .price-range {
+    margin-left: 40px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-serif-en);
+    color: var(--color-text);
+  }
+  .price-num {
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .price-tilde {
+    color: var(--color-gray);
+    font-style: italic;
+    font-size: 22px;
+  }
+</style>

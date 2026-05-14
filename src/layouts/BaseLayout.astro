@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '東京・神奈川・千葉・埼玉・静岡 イベント出店専門フードトラック｜FOOD STAND',
+  description = '4つの個性豊かなブランドで、あなたのイベントを彩ります。出店専門のフードトラックFOOD STAND。',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body>
+  <slot />
+
+  <script>
+    // スクロール時のフェードイン
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

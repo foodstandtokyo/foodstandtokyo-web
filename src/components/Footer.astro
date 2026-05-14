@@ -1,0 +1,172 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="deco"></div>
+    <div class="content">
+      <div class="logo-big">FOOD <span class="bold">STAND</span></div>
+      <div class="logo-tag">— Event Food Truck</div>
+
+      <div class="footer-message">
+        選ばれる味と確かな対応で、<br />
+        イベントの成功に貢献する<br />
+        フードパートナーを目指します。
+      </div>
+
+      <div class="links">
+        <a href="#about" class="link-item">ABOUT</a>
+        <a href="#brands" class="link-item">BRANDS</a>
+        <a href="#events" class="link-item">EVENTS</a>
+        <a href="#info" class="link-item">INFORMATION</a>
+        <a href="#contact" class="link-item">CONTACT</a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" class="link-item">INSTAGRAM</a>
+      </div>
+
+      <div class="contacts">
+        <a href="mailto:food.stand.tokyo@gmail.com" class="contact-mini">
+          <div class="icon">✉</div>
+          <div class="text">EMAIL</div>
+        </a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" class="contact-mini">
+          <div class="icon">📷</div>
+          <div class="text">INSTAGRAM</div>
+        </a>
+      </div>
+
+      <div class="copyright">
+        <div>© {year} FOOD STAND</div>
+        <a href="#top" class="top-link">BACK TO TOP <span class="arrow">↑</span></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-text);
+    color: var(--color-base);
+    padding: 60px 0 30px;
+  }
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+  }
+  .deco {
+    position: absolute;
+    top: 30px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-bluegray-medium), var(--color-bluegray-dark));
+    opacity: 0.4;
+    z-index: 0;
+  }
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+  .logo-big {
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: 40px;
+    letter-spacing: 0.16em;
+    color: var(--color-base);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .logo-big .bold {
+    font-weight: 500;
+  }
+  .logo-tag {
+    font-family: var(--font-serif-en);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--color-bluegray-light);
+    margin-bottom: 36px;
+    letter-spacing: 0.04em;
+  }
+  .footer-message {
+    font-family: var(--font-serif-jp);
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.95;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.08em;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 28px;
+  }
+  .links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 24px;
+    margin-bottom: 32px;
+  }
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .link-item::before {
+    content: '→';
+    color: var(--color-bluegray-light);
+    font-size: 12px;
+  }
+  .contacts {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .contact-mini {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .contact-mini .icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .contact-mini .text {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .copyright {
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .top-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>

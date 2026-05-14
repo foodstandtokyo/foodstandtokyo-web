@@ -1,0 +1,244 @@
+---
+// 4ブランド一覧
+const brands = [
+  {
+    id: 'waffles',
+    num: '01',
+    tag: 'SWEETS',
+    tagColor: 'w',
+    logo: '/logos/waffles_white.png',
+    name_en_small: 'the',
+    name_en_main: 'Waffle\'s',
+    name_jp: 'アメリカンワッフルと生ホイップクリーム',
+    desc: 'ふわっと香るバターと小麦、サクッと軽い焼きたてワッフルに、牧場直送の北海道産クリームと季節のフルーツを贅沢にトッピング。',
+    gradient: 'linear-gradient(135deg, #C5D1DC, #7A95AB)',
+  },
+  {
+    id: 'frozen',
+    num: '02',
+    tag: 'FROZEN',
+    tagColor: 'f',
+    logo: '/logos/frozen_white.png',
+    name_en_small: '',
+    name_en_main: 'FROZEN Stand',
+    name_jp: '果氷けずり&フローズンスムージー',
+    desc: '完熟フルーツを贅沢に削ったフローズンスイーツと、よく冷えた生フルーツサワー。軽くひんやりしたい時にも使える、心地よいスタンド。',
+    gradient: 'linear-gradient(135deg, #B5C5D1, #5A7891)',
+  },
+  {
+    id: 'salad',
+    num: '03',
+    tag: 'HEALTHY',
+    tagColor: 's',
+    logo: '/logos/salad_white.png',
+    name_en_small: '',
+    name_en_main: 'Salad bowl works',
+    name_jp: 'サラダボウル&フレッシュスムージー',
+    desc: '『サラダでキレイに満たす』をコンセプトに、新鮮な食材をたっぷり使った彩り豊かなサラダボウル専門店。ビーガン・ハラル対応。',
+    gradient: 'linear-gradient(135deg, #9BAFC0, #4A6377)',
+  },
+  {
+    id: 'coco',
+    num: '04',
+    tag: 'SEAFOOD',
+    tagColor: 'c',
+    logo: '/logos/coco_white.png',
+    name_en_small: 'Coco',
+    name_en_main: 'Shrimp',
+    name_jp: 'ガーリックシュリンプ&シーフード',
+    desc: '香ばしいガーリックシュリンプとスパイシーなケイジャンシュリンプを主役にした、シュリンプ&シーフード専門店。ペアリングも好評。',
+    gradient: 'linear-gradient(135deg, #A8BCCB, #3D5C73)',
+  },
+];
+---
+
+<section class="brands fade-in" id="brands">
+  <div class="container">
+    <div class="section-label">
+      <div class="section-label-num">03</div>
+      <div class="section-label-line"></div>
+      <div class="section-label-name">BRANDS</div>
+    </div>
+
+    <h2 class="big-title brands-title">
+      <span class="big-title-italic">4</span> Brands<br />
+      4 Stories.
+    </h2>
+    <div class="jp-sub">4つの個性、ひとつのチーム。</div>
+
+    <div class="brand-list">
+      {brands.map((brand) => (
+        <a href={`/brands/${brand.id}`} class="brand-card">
+          <div class="brand-image" style={`background: ${brand.gradient}`}>
+            <img src={brand.logo} class="brand-logo-overlay" alt={brand.name_en_main} />
+            <div class={`brand-tag tag-${brand.tagColor}`}>
+              <span class="dot"></span>{brand.tag}
+            </div>
+            <div class="brand-num">{brand.num}</div>
+          </div>
+          <div class="brand-body">
+            <div class="brand-name">
+              {brand.name_en_small && <span class="small">{brand.name_en_small}</span>}
+              {' '}{brand.name_en_main}
+            </div>
+            <div class="brand-jp">{brand.name_jp}</div>
+            <p class="brand-desc">{brand.desc}</p>
+            <div class="brand-link">VIEW MORE <span class="arrow">→</span></div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .brands {
+    padding: 80px 0;
+  }
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .brands-title {
+    margin-top: 20px;
+    font-size: 48px;
+  }
+  .jp-sub {
+    margin-top: 12px;
+    font-family: var(--font-serif-jp);
+    font-size: 13px;
+    color: var(--color-text-sub);
+    letter-spacing: 0.15em;
+  }
+  .brand-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .brand-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+  .brand-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .brand-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.15), transparent 50%);
+  }
+  .brand-logo-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 65%;
+    max-height: 55%;
+    width: auto;
+    height: auto;
+    z-index: 3;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+  }
+  .brand-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: var(--font-sans);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--color-text);
+    z-index: 4;
+  }
+  .brand-tag .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .tag-w .dot { background: #7A95AB; }
+  .tag-f .dot { background: #5A7891; }
+  .tag-s .dot { background: #4A6377; }
+  .tag-c .dot { background: #3D5C73; }
+  .brand-num {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-family: var(--font-serif-en);
+    font-style: italic;
+    font-size: 26px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+    z-index: 4;
+  }
+  .brand-body {
+    padding: 22px 22px 24px;
+  }
+  .brand-name {
+    font-family: var(--font-serif-en);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--color-text);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .brand-name .small {
+    font-style: italic;
+    font-size: 20px;
+    color: var(--color-bluegray-medium);
+    font-weight: 400;
+  }
+  .brand-jp {
+    font-family: var(--font-serif-jp);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--color-text-sub);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .brand-desc {
+    font-family: var(--font-serif-jp);
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.85;
+    color: #4A4A4A;
+    letter-spacing: 0.05em;
+    margin-bottom: 22px;
+  }
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--color-text);
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-text);
+  }
+  .brand-link .arrow {
+    font-size: 14px;
+  }
+</style>

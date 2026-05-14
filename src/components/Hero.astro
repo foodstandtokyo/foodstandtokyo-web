@@ -1,0 +1,242 @@
+---
+// ヒーロー：5つの円形配置 + 中央CTA + マーキー
+const brands = [
+  { id: 'waffles', name_en: 'the WAFFLE\'S', name_jp: 'ワッフル', class: 'sm-1' },
+  { id: 'frozen', name_en: 'FROZEN STAND', name_jp: 'フローズン', class: 'sm-2' },
+  { id: 'salad', name_en: 'SALAD bowl works', name_jp: 'サラダ', class: 'sm-3' },
+  { id: 'coco', name_en: 'Coco Shrimp', name_jp: 'シュリンプ', class: 'sm-4' },
+];
+---
+
+<section class="hero">
+  <div class="circles-area">
+    <!-- 小円1：ワッフル -->
+    <a href="/brands/waffles" class="circle sm-1">
+      <img src="/logos/waffles_white.png" class="circle-logo" alt="the Waffle's" />
+    </a>
+
+    <!-- 小円2：フローズン -->
+    <a href="/brands/frozen" class="circle sm-2">
+      <img src="/logos/frozen_white.png" class="circle-logo" alt="FROZEN Stand" />
+    </a>
+
+    <!-- メイン円 -->
+    <div class="circle main">
+      <div class="main-label">[ KITCHEN TRUCK PHOTO ]</div>
+    </div>
+
+    <!-- 小円3：サラダ -->
+    <a href="/brands/salad" class="circle sm-3">
+      <img src="/logos/salad_white.png" class="circle-logo" alt="Salad bowl works" />
+    </a>
+
+    <!-- 小円4：シュリンプ -->
+    <a href="/brands/coco" class="circle sm-4">
+      <img src="/logos/coco_white.png" class="circle-logo" alt="Coco Shrimp" />
+    </a>
+
+    <!-- 中央CTA -->
+    <a href="#brands" class="center-cta">
+      <div class="center-cta-en">DISCOVER</div>
+      <div class="center-cta-jp">ブランドを<br />見る</div>
+    </a>
+
+    <div class="scroll-arrow">↓</div>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee-content">
+      EVENT FOOD TRUCK<span>—</span>4 BRANDS<span>—</span>東京・神奈川・千葉・埼玉・静岡<span>—</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 70px;
+    overflow: hidden;
+  }
+
+  .circles-area {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    height: 640px;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+  }
+  .circle:hover {
+    transform: scale(1.04);
+  }
+
+  .circle.main {
+    width: 70%;
+    aspect-ratio: 1;
+    top: 16%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #B5C5D1 0%, #7A95AB 60%, #4A6377 100%);
+    box-shadow: 0 30px 60px rgba(74, 99, 119, 0.25);
+  }
+  .circle.main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.15) 0%, transparent 50%);
+  }
+
+  .main-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    z-index: 2;
+  }
+
+  .circle.sm-1 {
+    width: 22%;
+    aspect-ratio: 1;
+    top: 4%;
+    left: 4%;
+    background: linear-gradient(135deg, #C5D1DC, #8AA3B8);
+  }
+  .circle.sm-2 {
+    width: 24%;
+    aspect-ratio: 1;
+    top: 0;
+    right: 6%;
+    background: linear-gradient(135deg, #B5C5D1, #7A95AB);
+  }
+  .circle.sm-3 {
+    width: 21%;
+    aspect-ratio: 1;
+    top: 60%;
+    left: 2%;
+    background: linear-gradient(135deg, #9BAFC0, #5A7891);
+  }
+  .circle.sm-4 {
+    width: 20%;
+    aspect-ratio: 1;
+    top: 64%;
+    right: 4%;
+    background: linear-gradient(135deg, #C5CFD8, #7A8FA8);
+  }
+
+  .circle-logo {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+  }
+
+  .center-cta {
+    position: absolute;
+    width: 22%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-bluegray-dark);
+    top: 74%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-base);
+    box-shadow: 0 14px 32px rgba(61, 92, 115, 0.45);
+    transition: transform 0.3s;
+  }
+  .center-cta:hover {
+    transform: translateX(-50%) scale(1.05);
+  }
+  .center-cta-en {
+    font-family: var(--font-sans);
+    font-size: 8px;
+    letter-spacing: 0.28em;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .center-cta-jp {
+    font-family: var(--font-serif-jp);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .scroll-arrow {
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--color-bluegray-medium);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bluegray-medium);
+    font-size: 14px;
+    background: var(--color-base);
+    z-index: 11;
+  }
+
+  .marquee {
+    width: 100%;
+    background: var(--color-bluegray-medium);
+    color: var(--color-base);
+    padding: 16px 0;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 40px;
+  }
+  .marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    padding-left: 100%;
+  }
+  .marquee-content span {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 14px;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @media (min-width: 768px) {
+    .circles-area {
+      max-width: 800px;
+      height: 800px;
+    }
+    .main-label {
+      font-size: 12px;
+    }
+    .center-cta-jp {
+      font-size: 18px;
+    }
+    .marquee {
+      font-size: 14px;
+    }
+  }
+</style>

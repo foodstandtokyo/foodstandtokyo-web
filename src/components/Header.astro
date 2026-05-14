@@ -1,0 +1,100 @@
+---
+// 共通ヘッダー
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo-wrap">
+      <div class="logo-mark">FS</div>
+      <div class="logo-text">FOOD STAND</div>
+    </a>
+    <div class="header-right">
+      <a href="#contact" class="contact-btn">CONTACT</a>
+      <div class="menu-icon" aria-label="menu">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(250, 250, 247, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+  }
+  .logo-text {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    font-size: 13px;
+    color: var(--color-text);
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .contact-btn {
+    padding: 9px 18px;
+    border-radius: 30px;
+    border: 1.5px solid var(--color-bluegray-medium);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--color-bluegray-dark);
+    background: transparent;
+    transition: all 0.3s;
+  }
+  .contact-btn:hover {
+    background: var(--color-bluegray-dark);
+    color: var(--color-base);
+  }
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .menu-icon span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--color-text);
+  }
+</style>

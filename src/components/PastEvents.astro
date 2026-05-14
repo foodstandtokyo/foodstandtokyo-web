@@ -1,0 +1,222 @@
+---
+const events = [
+  { category: 'LARGE-SCALE EVENT', name: 'スターウォーズセレブレーション JAPAN 2025' },
+  { category: 'EXHIBITION', name: 'JAPAN モビリティショー' },
+  { category: 'MOTORSPORT', name: '富士スピードウェイ SUPER GT' },
+  { category: 'ARENA', name: '埼玉スーパーアリーナ / 幕張メッセ' },
+];
+---
+
+<section class="events fade-in" id="events">
+  <div class="container">
+    <div class="section-label">
+      <div class="section-label-num">04</div>
+      <div class="section-label-line"></div>
+      <div class="section-label-name">PAST EVENTS</div>
+    </div>
+
+    <h2 class="big-title events-title">
+      <span class="big-title-italic">Trusted</span><br />
+      at events.
+    </h2>
+    <div class="jp-sub">これまでの出店実績</div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num">500<span class="plus">+</span></div>
+        <div class="stat-label">EVENTS</div>
+        <div class="stat-jp">出店件数</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">PREF.</div>
+        <div class="stat-jp">対応エリア</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">BRANDS</div>
+        <div class="stat-jp">ブランド数</div>
+      </div>
+    </div>
+
+    <div class="events-heading">SELECTED VENUES</div>
+
+    <div class="events-list">
+      {events.map((event) => (
+        <div class="event-item">
+          <div class="event-image">
+            <div class="event-image-text">EVENT<br />PHOTO</div>
+          </div>
+          <div class="event-content">
+            <div class="event-category">{event.category}</div>
+            <div class="event-name">{event.name}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <a href="#contact" class="more-events">
+      VIEW ALL EVENTS <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .events {
+    padding: 80px 0;
+    background: #F4F5F2;
+  }
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .events-title {
+    margin-top: 20px;
+    font-size: 40px;
+  }
+  .jp-sub {
+    margin-top: 12px;
+    font-family: var(--font-serif-jp);
+    font-size: 13px;
+    color: var(--color-text-sub);
+    letter-spacing: 0.15em;
+  }
+  .stats {
+    margin-top: 28px;
+    display: flex;
+    gap: 10px;
+  }
+  .stat-card {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 14px 8px;
+    text-align: center;
+    border: 1px solid var(--color-border);
+  }
+  .stat-num {
+    font-family: var(--font-serif-en);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num .plus {
+    color: var(--color-bluegray-dark);
+    font-style: italic;
+    font-size: 22px;
+  }
+  .stat-label {
+    font-family: var(--font-sans);
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    color: var(--color-text-sub);
+  }
+  .stat-jp {
+    font-family: var(--font-serif-jp);
+    font-size: 9px;
+    color: var(--color-text);
+    margin-top: 2px;
+    letter-spacing: 0.1em;
+  }
+  .events-heading {
+    margin-top: 30px;
+    padding-bottom: 14px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--color-text-sub);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .events-heading::before {
+    content: '';
+    flex: 0 0 20px;
+    height: 1px;
+    background: #C5CFD8;
+  }
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .event-item {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .event-image {
+    flex: 0 0 48px;
+    height: 48px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #B5C5D1, #7A95AB);
+    position: relative;
+    overflow: hidden;
+  }
+  .event-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 60%);
+  }
+  .event-image-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-sans);
+    font-size: 7px;
+    letter-spacing: 0.15em;
+    text-align: center;
+    line-height: 1.3;
+    z-index: 2;
+  }
+  .event-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .event-category {
+    font-family: var(--font-sans);
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    color: var(--color-bluegray-medium);
+    margin-bottom: 4px;
+  }
+  .event-name {
+    font-family: var(--font-serif-jp);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--color-text);
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+  }
+  .more-events {
+    display: block;
+    margin-top: 28px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid var(--color-text);
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--color-text);
+    transition: all 0.3s;
+  }
+  .more-events:hover {
+    background: var(--color-text);
+    color: var(--color-base);
+  }
+  .more-events .arrow {
+    margin-left: 10px;
+  }
+</style>
