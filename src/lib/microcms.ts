@@ -1,9 +1,3 @@
-Last login: Fri May 15 23:08:13 on ttys007
-
-The default interactive shell is now zsh.
-To update your account to use zsh, please run `chsh -s /bin/zsh`.
-For more details, please visit https://support.apple.com/kb/HT208050.
-MacBook-Air:foodstand-site Taiki1$ cat src/lib/microcms.ts
 // microCMS接続設定
 import { createClient } from 'microcms-js-sdk';
 
