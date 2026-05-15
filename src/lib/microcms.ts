@@ -1,3 +1,9 @@
+Last login: Fri May 15 23:08:13 on ttys007
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+MacBook-Air:foodstand-site Taiki1$ cat src/lib/microcms.ts
 // microCMS接続設定
 import { createClient } from 'microcms-js-sdk';
 
@@ -46,6 +52,18 @@ export type Brand = {
   revisedAt: string;
 };
 
+// サイト設定（オブジェクト形式・1つだけ）
+export type SiteSettings = {
+  kitchenTruckImage?: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+};
 export type MenuItem = {
   id: string;
   brand: Brand; // コンテンツ参照（ブランド情報がネストされる）
@@ -102,4 +120,11 @@ export async function getMenuItemsByBrandId(brandId: string): Promise<MenuItem[]
     },
   });
   return response.contents;
+}
+/** サイト設定を取得（オブジェクト形式） */
+export async function getSiteSettings(): Promise<SiteSettings> {
+  const response = await client.getObject<SiteSettings>({
+    endpoint: 'site',
+  });
+  return response;
 }
