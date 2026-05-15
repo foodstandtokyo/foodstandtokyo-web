@@ -1,55 +1,58 @@
 ---
-// 4ブランド一覧
-const brands = [
-  {
-    id: 'waffles',
-    num: '01',
-    tag: 'SWEETS',
-    tagColor: 'w',
-    logo: '/logos/waffles_white.png',
-    name_en_small: 'the',
-    name_en_main: 'Waffle\'s',
-    name_jp: 'アメリカンワッフルと生ホイップクリーム',
-    desc: 'ふわっと香るバターと小麦、サクッと軽い焼きたてワッフルに、牧場直送の北海道産クリームと季節のフルーツを贅沢にトッピング。',
-    gradient: 'linear-gradient(135deg, #C5D1DC, #7A95AB)',
-  },
-  {
-    id: 'frozen',
-    num: '02',
-    tag: 'FROZEN',
-    tagColor: 'f',
-    logo: '/logos/frozen_white.png',
-    name_en_small: '',
-    name_en_main: 'FROZEN Stand',
-    name_jp: '果氷けずり&フローズンスムージー',
-    desc: '完熟フルーツを贅沢に削ったフローズンスイーツと、よく冷えた生フルーツサワー。軽くひんやりしたい時にも使える、心地よいスタンド。',
-    gradient: 'linear-gradient(135deg, #B5C5D1, #5A7891)',
-  },
-  {
-    id: 'salad',
-    num: '03',
-    tag: 'HEALTHY',
-    tagColor: 's',
-    logo: '/logos/salad_white.png',
-    name_en_small: '',
-    name_en_main: 'Salad bowl works',
-    name_jp: 'サラダボウル&フレッシュスムージー',
-    desc: '『サラダでキレイに満たす』をコンセプトに、新鮮な食材をたっぷり使った彩り豊かなサラダボウル専門店。ビーガン・ハラル対応。',
-    gradient: 'linear-gradient(135deg, #9BAFC0, #4A6377)',
-  },
-  {
-    id: 'coco',
-    num: '04',
-    tag: 'SEAFOOD',
-    tagColor: 'c',
-    logo: '/logos/coco_white.png',
-    name_en_small: 'Coco',
-    name_en_main: 'Shrimp',
-    name_jp: 'ガーリックシュリンプ&シーフード',
-    desc: '香ばしいガーリックシュリンプとスパイシーなケイジャンシュリンプを主役にした、シュリンプ&シーフード専門店。ペアリングも好評。',
-    gradient: 'linear-gradient(135deg, #A8BCCB, #3D5C73)',
-  },
-];
+import { getAllBrands } from '../lib/microcms';
+
+const brands = await getAllBrands();
+
+// slug → タグの色マッピング（CSSと連動）
+const tagColorMap: Record<string, string> = {
+  waffles: 'w',
+  frozen: 'f',
+  salad: 's',
+  coco: 'c',
+};
+
+// ブランド名を「前半（小さい斜体）」と「後半（メイン）」に分割
+// 例: "the Waffle's" → small: "the", main: "Waffle's"
+// 例: "FROZEN Stand" → small: "", main: "FROZEN Stand"
+function splitName(name: string) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length <= 1) {
+    return { small: '', main: name };
+  }
+  // 先頭が短い小文字単語の場合だけ分割（the, Coco など）
+  const first = parts[0];
+  if (first.length <= 4 && first[0] === first[0].toLowerCase().normalize() || first === 'Coco') {
+    return {
+      small: first,
+      main: parts.slice(1).join(' '),
+    };
+  }
+  return { small: '', main: name };
+}
+
+// 紹介文を短縮（CMSのaboutは長文なのでカード用に短くする）
+function truncate(text: string, maxLength: number = 100): string {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '…';
+}
+
+// 表示用データに変換
+const brandCards = brands.map((brand) => {
+  const { small, main } = splitName(brand.name);
+  return {
+    slug: brand.slug,
+    num: String(brand.order).padStart(2, '0'),
+    tag: brand.category,
+    tagColor: tagColorMap[brand.slug] ?? 'w',
+    // 白ロゴはコード内に残す（デザイン要素、変更頻度低い）
+    logo: `/logos/${brand.slug}_white.png`,
+    name_en_small: small,
+    name_en_main: main,
+    name_jp: brand.subTitle,
+    desc: truncate(brand.about, 100),
+    gradient: brand.heroBg,
+  };
+});
 ---
 
 <section class="brands fade-in" id="brands">
@@ -67,8 +70,8 @@ const brands = [
     <div class="jp-sub">4つの個性、ひとつのチーム。</div>
 
     <div class="brand-list">
-      {brands.map((brand) => (
-        <a href={`/brands/${brand.id}`} class="brand-card">
+      {brandCards.map((brand) => (
+        <a href={`/brands/${brand.slug}`} class="brand-card">
           <div class="brand-image" style={`background: ${brand.gradient}`}>
             <img src={brand.logo} class="brand-logo-overlay" alt={brand.name_en_main} />
             <div class={`brand-tag tag-${brand.tagColor}`}>
