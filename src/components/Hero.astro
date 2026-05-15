@@ -6,6 +6,16 @@ const brands = [
   { id: 'salad', name_en: 'SALAD bowl works', name_jp: 'サラダ', class: 'sm-3' },
   { id: 'coco', name_en: 'Coco Shrimp', name_jp: 'シュリンプ', class: 'sm-4' },
 ];
+import { getSiteSettings } from '../lib/microcms';
+
+let kitchenTruckImage;
+try {
+  const site = await getSiteSettings();
+  kitchenTruckImage = site.kitchenTruckImage;
+} catch (e) {
+  console.error('サイト設定取得失敗:', e);
+  kitchenTruckImage = undefined;
+}
 ---
 
 <section class="hero">
@@ -21,9 +31,13 @@ const brands = [
     </a>
 
     <!-- メイン円 -->
-    <div class="circle main">
-      <div class="main-label">[ KITCHEN TRUCK PHOTO ]</div>
-    </div>
+<div class="circle main">
+  {kitchenTruckImage ? (
+    <img src={kitchenTruckImage.url} class="main-image" alt="キッチンカー" />
+  ) : (
+    <div class="main-label">[ KITCHEN TRUCK PHOTO ]</div>
+  )}
+</div>
 
     <!-- 小円3：サラダ -->
     <a href="/brands/salad" class="circle sm-3">
@@ -97,6 +111,11 @@ const brands = [
       radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.15) 0%, transparent 50%);
   }
 
+　.main-image {
+  　width: 100%;
+  　height: 100%;
+ 　 object-fit: cover;
+　}
   .main-label {
     color: rgba(255, 255, 255, 0.7);
     font-family: var(--font-sans);
