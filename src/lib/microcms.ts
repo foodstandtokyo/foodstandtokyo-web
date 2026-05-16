@@ -1,23 +1,18 @@
 // microCMS接続設定
 import { createClient } from 'microcms-js-sdk';
-
 // 環境変数からサービスドメインとAPIキーを取得
 const serviceDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
 const apiKey = import.meta.env.MICROCMS_API_KEY;
-
 if (!serviceDomain || !apiKey) {
   throw new Error(
     'microCMSの環境変数が設定されていません。.envファイルまたはCloudflareの環境変数を確認してください。'
   );
 }
-
 export const client = createClient({
   serviceDomain,
   apiKey,
 });
-
 // 型定義 ----------
-
 export type Brand = {
   id: string; // microCMS自動生成ID
   name: string;
@@ -34,6 +29,11 @@ export type Brand = {
     width: number;
     height: number;
   };
+  circleImage?: {
+    url: string;
+    width: number;
+    height: number;
+  };
   about: string;
   slug: string;
   category: string;
@@ -45,7 +45,6 @@ export type Brand = {
   publishedAt: string;
   revisedAt: string;
 };
-
 // サイト設定（オブジェクト形式・1つだけ）
 export type SiteSettings = {
   kitchenTruckImage?: {
@@ -76,9 +75,7 @@ export type MenuItem = {
   publishedAt: string;
   revisedAt: string;
 };
-
 // 取得関数 ----------
-
 /** 全ブランドをorder順で取得 */
 export async function getAllBrands(): Promise<Brand[]> {
   const response = await client.getList<Brand>({
@@ -90,7 +87,6 @@ export async function getAllBrands(): Promise<Brand[]> {
   });
   return response.contents;
 }
-
 /** slugで1ブランドを取得 */
 export async function getBrandBySlug(slug: string): Promise<Brand | null> {
   const response = await client.getList<Brand>({
@@ -102,7 +98,6 @@ export async function getBrandBySlug(slug: string): Promise<Brand | null> {
   });
   return response.contents[0] ?? null;
 }
-
 /** ブランドIDに紐づくメニューをorder順で取得 */
 export async function getMenuItemsByBrandId(brandId: string): Promise<MenuItem[]> {
   const response = await client.getList<MenuItem>({
