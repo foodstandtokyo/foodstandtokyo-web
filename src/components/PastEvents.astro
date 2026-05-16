@@ -1,10 +1,32 @@
 ---
-const events = [
-  { category: 'LARGE-SCALE EVENT', name: 'スターウォーズセレブレーション JAPAN 2025' },
-  { category: 'EXHIBITION', name: 'JAPAN モビリティショー' },
-  { category: 'MOTORSPORT', name: '富士スピードウェイ SUPER GT' },
-  { category: 'ARENA', name: '埼玉スーパーアリーナ / 幕張メッセ' },
-];
+import { getFeaturedEvents, getSiteSettings } from '../lib/microcms';
+
+let events: Awaited<ReturnType<typeof getFeaturedEvents>> = [];
+let totalEvents = '500+';
+let prefectureCount = 5;
+let brandCount = 4;
+
+try {
+  events = await getFeaturedEvents();
+} catch (e) {
+  console.error('イベント取得失敗:', e);
+}
+try {
+  const site = await getSiteSettings();
+  if (site.totalEvents) totalEvents = site.totalEvents;
+  if (site.prefectureCount !== undefined) prefectureCount = site.prefectureCount;
+  if (site.brandCount !== undefined) brandCount = site.brandCount;
+} catch (e) {
+  console.error('サイト設定取得失敗:', e);
+}
+
+// 統計数字を「数字部分」と「+などの記号部分」に分離（500+ → 500 と + に）
+function splitNumber(text: string): { num: string; suffix: string } {
+  const match = text.match(/^(\d+)(.*)$/);
+  if (!match) return { num: text, suffix: '' };
+  return { num: match[1], suffix: match[2] };
+}
+const eventsStat = splitNumber(totalEvents);
 ---
 
 <section class="events fade-in" id="events">
@@ -23,17 +45,17 @@ const events = [
 
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-num">500<span class="plus">+</span></div>
+        <div class="stat-num">{eventsStat.num}{eventsStat.suffix && <span class="plus">{eventsStat.suffix}</span>}</div>
         <div class="stat-label">EVENTS</div>
         <div class="stat-jp">出店件数</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">5</div>
+        <div class="stat-num">{prefectureCount}</div>
         <div class="stat-label">PREF.</div>
         <div class="stat-jp">対応エリア</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">4</div>
+        <div class="stat-num">{brandCount}</div>
         <div class="stat-label">BRANDS</div>
         <div class="stat-jp">ブランド数</div>
       </div>
@@ -45,10 +67,13 @@ const events = [
       {events.map((event) => (
         <div class="event-item">
           <div class="event-image">
-            <div class="event-image-text">EVENT<br />PHOTO</div>
+            {event.photo ? (
+              <img src={event.photo.url} class="event-photo" alt={event.name} />
+            ) : (
+              <div class="event-image-text">EVENT<br />PHOTO</div>
+            )}
           </div>
           <div class="event-content">
-            <div class="event-category">{event.category}</div>
             <div class="event-name">{event.name}</div>
           </div>
         </div>
@@ -126,97 +151,4 @@ const events = [
     padding-bottom: 14px;
     font-family: var(--font-sans);
     font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--color-text-sub);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .events-heading::before {
-    content: '';
-    flex: 0 0 20px;
-    height: 1px;
-    background: #C5CFD8;
-  }
-  .events-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .event-item {
-    background: #FFFFFF;
-    border-radius: 10px;
-    padding: 12px 14px;
-    border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .event-image {
-    flex: 0 0 48px;
-    height: 48px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #B5C5D1, #7A95AB);
-    position: relative;
-    overflow: hidden;
-  }
-  .event-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 60%);
-  }
-  .event-image-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.8);
-    font-family: var(--font-sans);
-    font-size: 7px;
-    letter-spacing: 0.15em;
-    text-align: center;
-    line-height: 1.3;
-    z-index: 2;
-  }
-  .event-content {
-    flex: 1;
-    min-width: 0;
-  }
-  .event-category {
-    font-family: var(--font-sans);
-    font-size: 8px;
-    letter-spacing: 0.25em;
-    color: var(--color-bluegray-medium);
-    margin-bottom: 4px;
-  }
-  .event-name {
-    font-family: var(--font-serif-jp);
-    font-weight: 500;
-    font-size: 12px;
-    color: var(--color-text);
-    line-height: 1.4;
-    letter-spacing: 0.03em;
-  }
-  .more-events {
-    display: block;
-    margin-top: 28px;
-    padding: 16px;
-    text-align: center;
-    border: 1px solid var(--color-text);
-    border-radius: 30px;
-    font-family: var(--font-sans);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--color-text);
-    transition: all 0.3s;
-  }
-  .more-events:hover {
-    background: var(--color-text);
-    color: var(--color-base);
-  }
-  .more-events .arrow {
-    margin-left: 10px;
-  }
-</style>
+    letter-spacing
