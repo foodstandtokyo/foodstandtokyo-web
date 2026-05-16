@@ -52,6 +52,9 @@ export type SiteSettings = {
     width: number;
     height: number;
   };
+  totalEvents?: string;
+  prefectureCount?: number;
+  brandCount?: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -70,6 +73,22 @@ export type MenuItem = {
     height: number;
   };
   order: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+};
+// イベント（出店実績）
+export type Event = {
+  id: string;
+  name: string;
+  photo?: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  order: number;
+  isFeatured?: boolean;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -116,4 +135,27 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     endpoint: 'site',
   });
   return response;
+}
+/** トップページ表示用イベント（isFeatured = true）をorder順で取得 */
+export async function getFeaturedEvents(): Promise<Event[]> {
+  const response = await client.getList<Event>({
+    endpoint: 'events',
+    queries: {
+      filters: 'isFeatured[equals]true',
+      orders: 'order',
+      limit: 100,
+    },
+  });
+  return response.contents;
+}
+/** 全イベントをorder順で取得（VIEW ALL EVENTSページ用） */
+export async function getAllEvents(): Promise<Event[]> {
+  const response = await client.getList<Event>({
+    endpoint: 'events',
+    queries: {
+      orders: 'order',
+      limit: 100,
+    },
+  });
+  return response.contents;
 }
