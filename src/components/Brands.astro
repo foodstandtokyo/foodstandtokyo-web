@@ -12,14 +12,11 @@ const tagColorMap: Record<string, string> = {
 };
 
 // ブランド名を「前半（小さい斜体）」と「後半（メイン）」に分割
-// 例: "the Waffle's" → small: "the", main: "Waffle's"
-// 例: "FROZEN Stand" → small: "", main: "FROZEN Stand"
 function splitName(name: string) {
   const parts = name.trim().split(/\s+/);
   if (parts.length <= 1) {
     return { small: '', main: name };
   }
-  // 先頭が短い小文字単語の場合だけ分割（the, Coco など）
   const first = parts[0];
   if (first.length <= 4 && first[0] === first[0].toLowerCase().normalize() || first === 'Coco') {
     return {
@@ -30,7 +27,7 @@ function splitName(name: string) {
   return { small: '', main: name };
 }
 
-// 紹介文を短縮（CMSのaboutは長文なのでカード用に短くする）
+// 紹介文を短縮
 function truncate(text: string, maxLength: number = 100): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength) + '…';
@@ -44,13 +41,13 @@ const brandCards = brands.map((brand) => {
     num: String(brand.order).padStart(2, '0'),
     tag: brand.category,
     tagColor: tagColorMap[brand.slug] ?? 'w',
-    // 白ロゴはコード内に残す（デザイン要素、変更頻度低い）
     logo: `/logos/${brand.slug}_white.png`,
     name_en_small: small,
     name_en_main: main,
     name_jp: brand.subTitle,
     desc: truncate(brand.about, 100),
     gradient: brand.heroBg,
+    circleImage: brand.circleImage,
   };
 });
 ---
@@ -73,6 +70,9 @@ const brandCards = brands.map((brand) => {
       {brandCards.map((brand) => (
         <a href={`/brands/${brand.slug}`} class="brand-card">
           <div class="brand-image" style={`background: ${brand.gradient}`}>
+            {brand.circleImage && (
+              <img src={brand.circleImage.url} class="brand-bg-image" alt="" />
+            )}
             <img src={brand.logo} class="brand-logo-overlay" alt={brand.name_en_main} />
             <div class={`brand-tag tag-${brand.tagColor}`}>
               <span class="dot"></span>{brand.tag}
@@ -138,12 +138,23 @@ const brandCards = brands.map((brand) => {
     height: 200px;
     overflow: hidden;
   }
+  /* 背景画像（カードの画像エリア全体に広がる） */
+  .brand-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
   .brand-image::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 50%),
-      radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.15), transparent 50%);
+    background: linear-gradient(135deg, rgba(74, 99, 119, 0.35), rgba(61, 92, 115, 0.45)),
+      radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.2), transparent 50%);
+    z-index: 2;
   }
   .brand-logo-overlay {
     position: absolute;
@@ -155,7 +166,7 @@ const brandCards = brands.map((brand) => {
     width: auto;
     height: auto;
     z-index: 3;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
   }
   .brand-tag {
     position: absolute;
