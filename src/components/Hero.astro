@@ -1,14 +1,9 @@
 ---
 // ヒーロー：5つの円形配置 + 中央CTA + マーキー
-const brands = [
-  { id: 'waffles', name_en: 'the WAFFLE\'S', name_jp: 'ワッフル', class: 'sm-1' },
-  { id: 'frozen', name_en: 'FROZEN STAND', name_jp: 'フローズン', class: 'sm-2' },
-  { id: 'salad', name_en: 'SALAD bowl works', name_jp: 'サラダ', class: 'sm-3' },
-  { id: 'coco', name_en: 'Coco Shrimp', name_jp: 'シュリンプ', class: 'sm-4' },
-];
-import { getSiteSettings } from '../lib/microcms';
+import { getSiteSettings, getAllBrands } from '../lib/microcms';
 
 let kitchenTruckImage;
+let brands: Awaited<ReturnType<typeof getAllBrands>> = [];
 try {
   const site = await getSiteSettings();
   kitchenTruckImage = site.kitchenTruckImage;
@@ -16,36 +11,60 @@ try {
   console.error('サイト設定取得失敗:', e);
   kitchenTruckImage = undefined;
 }
+try {
+  brands = await getAllBrands();
+} catch (e) {
+  console.error('ブランド取得失敗:', e);
+}
+
+// slug でブランドを引けるようにマップ化
+const brandMap = Object.fromEntries(brands.map((b) => [b.slug, b]));
+const waffles = brandMap['waffles'];
+const frozen = brandMap['frozen'];
+const salad = brandMap['salad'];
+const coco = brandMap['coco'];
 ---
 
 <section class="hero">
   <div class="circles-area">
     <!-- 小円1：ワッフル -->
     <a href="/brands/waffles" class="circle sm-1">
+      {waffles?.circleImage && (
+        <img src={waffles.circleImage.url} class="circle-bg" alt="" />
+      )}
       <img src="/logos/waffles_white.png" class="circle-logo" alt="the Waffle's" />
     </a>
 
     <!-- 小円2：フローズン -->
     <a href="/brands/frozen" class="circle sm-2">
+      {frozen?.circleImage && (
+        <img src={frozen.circleImage.url} class="circle-bg" alt="" />
+      )}
       <img src="/logos/frozen_white.png" class="circle-logo" alt="FROZEN Stand" />
     </a>
 
     <!-- メイン円 -->
-<div class="circle main">
-  {kitchenTruckImage ? (
-    <img src={kitchenTruckImage.url} class="main-image" alt="キッチンカー" />
-  ) : (
-    <div class="main-label">[ KITCHEN TRUCK PHOTO ]</div>
-  )}
-</div>
+    <div class="circle main">
+      {kitchenTruckImage ? (
+        <img src={kitchenTruckImage.url} class="main-image" alt="キッチンカー" />
+      ) : (
+        <div class="main-label">[ KITCHEN TRUCK PHOTO ]</div>
+      )}
+    </div>
 
     <!-- 小円3：サラダ -->
     <a href="/brands/salad" class="circle sm-3">
+      {salad?.circleImage && (
+        <img src={salad.circleImage.url} class="circle-bg" alt="" />
+      )}
       <img src="/logos/salad_white.png" class="circle-logo" alt="Salad bowl works" />
     </a>
 
     <!-- 小円4：シュリンプ -->
     <a href="/brands/coco" class="circle sm-4">
+      {coco?.circleImage && (
+        <img src={coco.circleImage.url} class="circle-bg" alt="" />
+      )}
       <img src="/logos/coco_white.png" class="circle-logo" alt="Coco Shrimp" />
     </a>
 
@@ -94,6 +113,16 @@ try {
     transform: scale(1.04);
   }
 
+  /* 小円の背景画像（円形にフィット） */
+  .circle-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
   .circle.main {
     width: 70%;
     aspect-ratio: 1;
@@ -111,11 +140,11 @@ try {
       radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.15) 0%, transparent 50%);
   }
 
-　.main-image {
-  　width: 100%;
-  　height: 100%;
- 　 object-fit: cover;
-　}
+  .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .main-label {
     color: rgba(255, 255, 255, 0.7);
     font-family: var(--font-sans);
@@ -153,13 +182,25 @@ try {
     background: linear-gradient(135deg, #C5CFD8, #7A8FA8);
   }
 
+  /* 小円の上に薄い暗幕を入れて白ロゴの視認性を上げる */
+  .circle.sm-1::after,
+  .circle.sm-2::after,
+  .circle.sm-3::after,
+  .circle.sm-4::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74, 99, 119, 0.35), rgba(61, 92, 115, 0.45));
+    z-index: 2;
+  }
+
   .circle-logo {
     width: 70%;
     height: auto;
     object-fit: contain;
     position: relative;
-    z-index: 2;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+    z-index: 3;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
   }
 
   .center-cta {
